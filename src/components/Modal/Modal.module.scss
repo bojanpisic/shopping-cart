@@ -1,0 +1,72 @@
+.wrapper {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 700;
+  width: 60vw;
+  outline: 0;
+
+  .styled-modal {
+    z-index: 100;
+    background: white;
+    position: relative;
+    margin: auto;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+
+    .header {
+      border-radius: 8px 8px 0 0;
+      display: flex;
+      justify-content: space-between;
+      padding: 0.3rem;
+
+      .header-text {
+        color: #fff;
+        align-self: center;
+        color: lightgray;
+      }
+
+      .close {
+        font-size: 0.8rem;
+        border: none;
+        border-radius: 3px;
+        margin-left: 0.5rem;
+        background: none;
+        :hover {
+          cursor: pointer;
+        }
+      }
+    }
+
+    .content {
+      padding: 10px;
+      max-height: 30rem;
+      overflow-x: hidden;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .actions {
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+      align-self: center;
+    }
+  }
+}
+
+.backdrop {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 500;
+}
