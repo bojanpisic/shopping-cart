@@ -1,13 +1,7 @@
-import {
-  ReactNode,
-  createContext,
-  useEffect,
-  useReducer,
-  useState,
-} from "react";
-import { Product } from "../../Products/types/product";
-import { CartItem } from "../types/CartItem";
-import { localData } from "../../../utils/localData";
+import { ReactNode, createContext, useEffect, useReducer, useState } from 'react';
+import { ProductType } from '../../Products/types/product.type';
+import { CartItem } from '../types/CartItemType';
+import { localData } from '../../../utils/localData';
 
 export type CartContextType = {
   cartItems: CartItem[];
@@ -15,7 +9,7 @@ export type CartContextType = {
   totalPrice: number;
   setShowCartPanel: React.Dispatch<React.SetStateAction<boolean>>;
   getItemQuantity: (id: number) => number;
-  addToCart: (product: Product) => void;
+  addToCart: (product: ProductType) => void;
   incrementCartItem: (id: number) => void;
   decrementCartItem: (id: number) => void;
   removeCartItem: (id: number) => void;
@@ -31,10 +25,10 @@ type CartState = {
 };
 
 enum ReducerActionType {
-  Increment = "INCREMENT",
-  Decrement = "DECREMENT",
-  Add = "ADD",
-  Remove = "REMOVE",
+  Increment = 'INCREMENT',
+  Decrement = 'DECREMENT',
+  Add = 'ADD',
+  Remove = 'REMOVE',
 }
 
 type ActionType<T, K> = {
@@ -44,7 +38,7 @@ type ActionType<T, K> = {
 
 type IncrementActionType = ActionType<ReducerActionType.Increment, number>;
 type DecrementActionType = ActionType<ReducerActionType.Decrement, number>;
-type AddActionType = ActionType<ReducerActionType.Add, Product>;
+type AddActionType = ActionType<ReducerActionType.Add, ProductType>;
 type RemoveActionType = ActionType<ReducerActionType.Remove, number>;
 
 type ReducerAction =
@@ -113,7 +107,13 @@ const cartReducer = (state: CartState, action: ReducerAction): CartState => {
           [action.payload.id]: { ...action.payload, quantity: 1 },
         };
 
-      return { ...state };
+      return {
+        ...state,
+        [cartItem.id]: {
+          ...cartItem,
+          quantity: cartItem.quantity + 1,
+        },
+      };
     }
 
     case ReducerActionType.Remove: {
@@ -123,20 +123,19 @@ const cartReducer = (state: CartState, action: ReducerAction): CartState => {
     }
 
     default:
-      console.error("Action not available");
+      console.error('Action not available');
       return state;
   }
 };
 
-const initialReducerValue =
-  localData.get<CartState>("cart") ?? ({} as CartState);
+const initialReducerValue = localData.get<CartState>('cart') ?? ({} as CartState);
 
 const CartProvider = ({ children }: CartProviderProps) => {
   const [state, dispatch] = useReducer(cartReducer, initialReducerValue);
 
   const [showCartPanel, setShowCartPanel] = useState(false);
 
-  const addToCart = (product: Product) =>
+  const addToCart = (product: ProductType) =>
     dispatch({ type: ReducerActionType.Add, payload: product });
   const incrementCartItem = (id: number) =>
     dispatch({ type: ReducerActionType.Increment, payload: id });
@@ -148,16 +147,14 @@ const CartProvider = ({ children }: CartProviderProps) => {
 
   const cartQuantity = Object.values(state).reduce(
     (quantity, item) => item.quantity + quantity,
-    0
+    0,
   );
   const totalPrice =
-    Object.values(state).reduce(
-      (total, item) => item.quantity * item.price + total,
-      0
-    ) || 0;
+    Object.values(state).reduce((total, item) => item.quantity * item.price + total, 0) ||
+    0;
 
   useEffect(() => {
-    localData.add("cart", state);
+    localData.add('cart', state);
   }, [state]);
 
   return (

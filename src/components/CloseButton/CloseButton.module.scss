@@ -1,0 +1,28 @@
+.closeButton {
+  position: relative;
+  appearance: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1.2rem;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ededee;
+  transition: background-color 0.12s ease-out;
+  z-index: 2;
+
+  &:hover {
+    background-color: #dbdbdc;
+  }
+}
+
+.left {
+  margin-right: auto;
+}
+
+.right {
+  margin-left: auto;
+}

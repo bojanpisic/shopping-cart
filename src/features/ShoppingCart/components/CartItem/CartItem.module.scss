@@ -1,0 +1,23 @@
+.cartItem {
+  display: flex;
+  gap: 0.675rem;
+  padding: 0.714rem;
+  justify-content: space-between;
+  align-items: center;
+
+  .details {
+    .name {
+      margin-top: 0;
+      margin-bottom: 0.675rem;
+    }
+
+    p {
+      margin-top: 0;
+      font-weight: 600;
+      font-size: 1.1rem;
+      line-height: 1.25rem;
+      color: #009de0;
+      padding-top: 0.2rem;
+    }
+  }
+}

@@ -1,14 +1,16 @@
-type Props = React.ButtonHTMLAttributes<HTMLButtonElement>
+import clsx from 'clsx';
+import styles from './Button.module.scss';
 
-const Button = (props: Props) => {
+type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  variant?: 'primary' | 'secondary';
+};
 
+const Button = ({ variant = 'primary', ...rest }: Props) => {
   return (
-    <button
-      {...props}
-    >
-      {props?.children}
+    <button className={clsx(styles.button, styles[variant])} {...rest}>
+      {rest.children}
     </button>
-  )
-}
+  );
+};
 
-export default Button
+export default Button;

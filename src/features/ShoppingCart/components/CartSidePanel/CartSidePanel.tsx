@@ -1,27 +1,38 @@
-import SidePanel from '../../../../components/SidePanel/SidePanel'
-import { useCartContext } from '../../hooks/useCartContext'
-import CartItem from '../CartItem/CartItem'
+import Button from '../../../../components/Button/Button';
+import SideDrawer from '../../../../components/SideDrawer/SideDrawer';
+import { formatCurrency } from '../../../../utils/formatCurrency';
+import { useCartContext } from '../../hooks/useCartContext';
+import CartItem from '../CartItem/CartItem';
+import styles from './CartSidePanel.module.scss';
 
-type Props = {
-  show: boolean
-}
+const CartSidePanel = () => {
+  const { cartItems, totalPrice, showCartPanel, setShowCartPanel } = useCartContext();
 
-const CartSidePanel = ({ show }: Props) => {
-
-  const { 
-    cartItems,
-    totalPrice
-  } = useCartContext();
-
-  const items = cartItems?.map(item => <CartItem item={item} />)
+  const handleClosePanel = () => setShowCartPanel(false);
 
   return (
-    <SidePanel isOpened={show}>
-      {cartItems?.length && cartItems.map(item => <CartItem item={item} />)}
-      { !items?.length && <span>NO items</span>}
-      {totalPrice}
-    </SidePanel>
-  )
-}
+    <SideDrawer show={showCartPanel} onClose={handleClosePanel}>
+      {cartItems?.length > 0 &&
+        cartItems?.map((item) => <CartItem key={item.id} item={item} />)}
 
-export default CartSidePanel
+      {!cartItems?.length && (
+        <div className={styles.noItems}>
+          <h1>No items</h1>
+          <Button variant="secondary" onClick={handleClosePanel}>
+            Add items
+          </Button>
+        </div>
+      )}
+      {cartItems?.length > 0 && (
+        <>
+          <div className={styles.separator} />
+          <p className={styles.totalPrice}>
+            Total price <span>{formatCurrency(totalPrice)}</span>
+          </p>
+        </>
+      )}
+    </SideDrawer>
+  );
+};
+
+export default CartSidePanel;

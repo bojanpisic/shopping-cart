@@ -1,0 +1,21 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+
+  .accordion {
+    display: flex;
+    flex-direction: column;
+
+    .button {
+      appearance: none;
+    }
+
+    .content {
+      height: 0;
+
+      &.active {
+        height: auto;
+      }
+    }
+  }
+}

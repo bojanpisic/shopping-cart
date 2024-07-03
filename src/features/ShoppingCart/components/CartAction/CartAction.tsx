@@ -1,27 +1,20 @@
-import Button from "../../../../components/Button/Button"
-import { useCartContext } from "../../hooks/useCartContext";
+import Button from '../../../../components/Button/Button';
+import { ProductType } from '../../../Products/types/product.type';
+import { useCartContext } from '../../hooks/useCartContext';
 
 type Props = {
-  id: number
-}
+  product: ProductType;
+};
 
-const CartAction = ({ id }: Props) => {
+const CartAction = ({ product }: Props) => {
+  const { addToCart } = useCartContext();
 
-  const { 
-    getItemQuantity,
-    decrementCartItem,
-    incrementCartItem
-  } = useCartContext();
+  const handleOnClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    addToCart(product);
+  };
 
-  const quantity = getItemQuantity(id);
+  return <Button onClick={handleOnClick}>Add to cart</Button>;
+};
 
-  return (
-    <div>
-      <Button onClick={() => decrementCartItem(id)}>-</Button>
-      <span>{quantity}</span>
-      <Button onClick={() => incrementCartItem(id)}>+</Button>
-    </div>
-  )
-}
-
-export default CartAction
+export default CartAction;

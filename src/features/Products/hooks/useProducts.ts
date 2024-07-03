@@ -1,34 +1,33 @@
-import { useEffect, useState } from "react";
-import { Product } from "../types/product";
+import { useEffect, useState } from 'react';
+import { ProductType } from '../types/product.type';
 
-export default function useProducts() {
-  
-  const [products, setProducts] = useState<Product[] | null>(null);
-  const [isFetching, setIsFetching] = useState<boolean>(false);
-  const [error, setError] = useState(null);
+export const useProducts = () => {
+  const [products, setProducts] = useState<ProductType[] | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      const response = await fetch(import.meta.env.VITE_API_URL);
-      const data = await response.json() as Product[];
+    (async () => {
+      try {
+        const response = await fetch(import.meta.env.VITE_API_URL);
+        const data: ProductType[] = await response.json();
 
-      return data;
-    };
-
-    setIsFetching(true);
-
-    fetchProducts()
-      .then(res => setProducts(res))
-      .catch(err => {
-        setError(err)
-      })
-      .finally(() => setIsFetching(false))
-
-    }, []);
+        setProducts(data);
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          setError(err);
+        } else {
+          setError(new Error('An unknown error occurred'));
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    })();
+  }, []);
 
   return {
-    isFetching,
+    isLoading,
     products,
-    error
-  }
-}
+    error,
+  };
+};

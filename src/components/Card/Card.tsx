@@ -1,26 +1,18 @@
-import { CSSProperties, ReactNode } from "react"
+import { ReactNode } from 'react';
 
 type Props = {
-  children: ReactNode,
-  onClick?: () => void,
-  style?: CSSProperties
-}
+  children: ReactNode;
+  footer?: ReactNode;
+  onClick?: () => void;
+};
 
-const Card = ({
-  children,
-  onClick,
-  style,
-  ...props
-}: Props) => {
+const Card = ({ children, onClick, footer }: Props) => {
   return (
-    <div
-      onClick={onClick}
-      style={style}
-      {...props}
-    >
-      {children}
+    <div onClick={onClick}>
+      <div>{children}</div>
+      <div>{footer}</div>
     </div>
-  )
-}
+  );
+};
 
-export default Card
+export default Card;

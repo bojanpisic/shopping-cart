@@ -1,52 +1,34 @@
-import { useState } from "react";
-import Button from "../../../../components/Button/Button";
-import Card from "../../../../components/Card/Card";
-import Modal from "../../../../components/Modal/Modal";
-import { formatCurrency } from "../../../../utils/formatCurrency";
-import { Product } from "../../types/product";
-import CartAction from "../../../ShoppingCart/components/CartAction/CartAction";
-import { useCartContext } from "../../../ShoppingCart/hooks/useCartContext";
+import clsx from 'clsx';
+import { formatCurrency } from '../../../../utils/formatCurrency';
+import { ProductType } from '../../types/product.type';
+import styles from './ProductItem.module.scss';
+import CartAction from '../../../ShoppingCart/components/CartAction/CartAction';
 
 type Props = {
-  product: Product;
+  product: ProductType;
+  onSelectProduct: (product: ProductType) => void;
 };
 
-const ProductItem = ({ product }: Props) => {
-  const { addToCart, getItemQuantity } =
-    useCartContext();
-
-  const [showDetails, setShowDetails] = useState(false);
-
-  const quantity = getItemQuantity(product.id);
-
-  const addButton = (
-    <Button
-      onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-        addToCart(product);
-        e.stopPropagation();
-      }}
-    >
-      Add to cart
-    </Button>
-  );
+const ProductItem = ({ product, onSelectProduct }: Props) => {
+  const { name, description, price } = product;
 
   return (
-    <>
-      <Card onClick={() => setShowDetails(true)}>
-        <p>{product.name}</p>
-        <p>{product.description}</p>
-        <p>{formatCurrency(product.price)}</p>
-        {quantity === 0 && addButton}
-        {quantity > 0 && <p>ADDED</p>}
-      </Card>
-      <Modal show={showDetails} onClose={() => setShowDetails(false)}>
-        <p>{product.name}</p>
-        <p>{product.description}</p>
-        <p>{formatCurrency(product.price)}</p>
-        {quantity === 0 && addButton}
-        {quantity > 0 && <CartAction id={product.id} />}
-      </Modal>
-    </>
+    <div
+      className={clsx(styles['product-item'])}
+      onClick={() => onSelectProduct(product)}
+    >
+      <div className={styles.content}>
+        <h3 className={styles.title}>{name}</h3>
+        <p className={styles.description}>{description}</p>
+      </div>
+      <div></div>
+      <div className={styles.price}>
+        <span>{formatCurrency(price)}</span>
+      </div>
+      <div className={styles.actions}>
+        <CartAction product={product} />
+      </div>
+    </div>
   );
 };
 

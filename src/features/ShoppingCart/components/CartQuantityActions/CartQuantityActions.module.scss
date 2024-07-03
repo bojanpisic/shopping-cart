@@ -1,0 +1,33 @@
+.wrapper {
+  text-align: center;
+  display: grid;
+  align-items: center;
+  grid-template-columns: 3.375rem minmax(1.75rem, auto) 3.375rem 2.375rem;
+  height: 3rem;
+  align-items: center;
+  color: #009de0;
+  background-color: #ebf7fd;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  font-size: 1.1;
+
+  button {
+    border: none;
+    user-select: none;
+    background-color: transparent;
+    cursor: pointer;
+    align-self: center;
+    justify-self: center;
+  }
+
+  .quantityStepper {
+    background-color: #fff;
+    border-radius: 50%;
+    width: 1.7rem;
+    height: 1.7rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
