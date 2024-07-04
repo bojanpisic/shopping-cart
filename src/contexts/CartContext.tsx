@@ -1,11 +1,4 @@
-import {
-  ReactNode,
-  createContext,
-  useCallback,
-  useContext,
-  useMemo,
-  useState,
-} from 'react';
+import { ReactNode, createContext, useCallback, useContext, useMemo } from 'react';
 import { CartDataType } from '../types';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 
@@ -42,8 +35,6 @@ const CartProvider = ({ children }: CartProviderProps) => {
     'cart',
     {} as CartDataType,
   );
-
-  const [isCartPanelOpened, setIsCartPanelOpened] = useState(false);
 
   const addToCart = useCallback(
     (id: keyof CartDataType) => {
