@@ -12,9 +12,6 @@ import { useLocalStorage } from '../hooks/useLocalStorage';
 export type CartContextType = {
   cartData: CartDataType;
   cartQuantity: number;
-  isCartPanelOpened: boolean;
-  showCartPanel: () => void;
-  hideCartPanel: () => void;
   addToCart: (id: number) => void;
   decrementCartItem: (id: number) => void;
   removeCartItem: (id: number) => void;
@@ -27,9 +24,6 @@ type CartProviderProps = {
 export const CartContext = createContext<CartContextType>({
   cartData: {},
   cartQuantity: 0,
-  isCartPanelOpened: false,
-  showCartPanel: () => {},
-  hideCartPanel: () => {},
   addToCart: () => {},
   decrementCartItem: () => {},
   removeCartItem: () => {},
@@ -103,15 +97,6 @@ const CartProvider = ({ children }: CartProviderProps) => {
     [cartData],
   );
 
-  const showCartPanel = useCallback(
-    () => setIsCartPanelOpened(true),
-    [setIsCartPanelOpened],
-  );
-  const hideCartPanel = useCallback(
-    () => setIsCartPanelOpened(false),
-    [setIsCartPanelOpened],
-  );
-
   return (
     <CartContext.Provider
       value={{
@@ -120,9 +105,6 @@ const CartProvider = ({ children }: CartProviderProps) => {
         addToCart,
         decrementCartItem,
         removeCartItem,
-        showCartPanel,
-        hideCartPanel,
-        isCartPanelOpened,
       }}
     >
       {children}
