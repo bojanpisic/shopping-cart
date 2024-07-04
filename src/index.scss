@@ -8,8 +8,6 @@
     font-size: 12px;
   }
 
-  color-scheme: light dark;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -32,8 +30,6 @@ body {
 main {
   flex: 1;
   display: flex;
-  // justify-content: center;
-  // align-items: center;
   max-width: 1400px;
   margin: 0 auto;
   margin-top: 7rem;
