@@ -4,14 +4,19 @@
 
   .price {
     font-weight: 600;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     line-height: 1.25rem;
     color: var(--primary-color);
-    padding-top: 0.2rem;
+    padding-top: 0.6rem;
   }
 
   .description {
     font-size: 1rem;
+  }
+
+  .actions {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
   }
 
   h2 {

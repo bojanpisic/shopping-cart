@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
-import styles from './Header.module.scss';
 import { NavLink } from 'react-router-dom';
 import { Paths } from '../../routes/path-constants';
+import styles from './Header.module.scss';
 
 type Props = {
   children: ReactNode;

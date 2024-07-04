@@ -1,7 +1,7 @@
-import Button from '../../../../components/Button/Button';
 import { useSideDrawerContext } from '../../../../contexts/SideDrawerContext';
-import { useCartData } from '../../../../hooks/useCartData';
 import { formatCurrency } from '../../../../utils/formatCurrency';
+import { useCartData } from '../../../../hooks/useCartData';
+import Button from '../../../../components/Button/Button';
 import CartItem from '../CartItem/CartItem';
 import styles from './CartSidePanel.module.scss';
 
@@ -19,10 +19,9 @@ const CartSidePanel = () => {
           </Button>
         </div>
       )}
-      {cartItems?.length > 0 &&
-        cartItems?.map((item) => <CartItem key={item.id} item={item} />)}
       {cartItems?.length > 0 && (
         <>
+          {cartItems?.map((item) => <CartItem key={item.id} item={item} />)}
           <div className={styles.separator} />
           <p className={styles.totalPrice}>
             Total price <span>{formatCurrency(totalPrice)}</span>

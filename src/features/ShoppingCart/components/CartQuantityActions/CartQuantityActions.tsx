@@ -21,27 +21,34 @@ const CartQuantityActions = ({
   min = 1,
   max = 10,
 }: Props) => {
+  const isDecrementDisabled = quantity === min;
+  const isIncrementDisabled = quantity === max;
+
   return (
     <div className={styles.wrapper}>
       <button
-        disabled={quantity === min}
+        disabled={isDecrementDisabled}
         className={styles.quantityStepper}
         onClick={() => decrement(id)}
       >
         <FontAwesomeIcon
           icon={faMinus}
-          color={quantity > min ? 'var(--primary-color)' : 'var(--disabled-button-color)'}
+          color={
+            !isDecrementDisabled ? 'var(--primary-color)' : 'var(--disabled-button-color)'
+          }
         />
       </button>
       <span>{quantity}</span>
       <button
-        disabled={quantity === max}
+        disabled={isIncrementDisabled}
         className={styles.quantityStepper}
         onClick={() => increment(id)}
       >
         <FontAwesomeIcon
           icon={faPlus}
-          color={quantity < max ? 'var(--primary-color)' : 'var(--disabled-button-color)'}
+          color={
+            !isIncrementDisabled ? 'var(--primary-color)' : 'var(--disabled-button-color)'
+          }
         />
       </button>
       <button onClick={() => remove(id)}>

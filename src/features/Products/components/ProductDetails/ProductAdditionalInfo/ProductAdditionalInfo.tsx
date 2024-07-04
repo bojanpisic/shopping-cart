@@ -1,6 +1,6 @@
 import { ReactNode, useMemo } from 'react';
-import Accordion from '../../../../../components/Accordion/Accordion';
 import { AccordionItemType } from '../../../../../types/accordionItem.type';
+import Accordion from '../../../../../components/Accordion/Accordion';
 
 type Props = {
   features: string[];

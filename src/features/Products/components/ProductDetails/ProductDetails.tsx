@@ -1,9 +1,10 @@
 import { useParams } from 'react-router-dom';
+import ProductAdditionalInfo from './ProductAdditionalInfo/ProductAdditionalInfo';
+import LoadingSpinner from '../../../../components/LoadingSpinner/LoadingSpinner';
 import { useProductsContext } from '../../../../contexts/ProductsContext';
 import { formatCurrency } from '../../../../utils/formatCurrency';
-import ProductAdditionalInfo from './ProductAdditionalInfo/ProductAdditionalInfo';
 import styles from './ProductDetails.module.scss';
-import LoadingSpinner from '../../../../components/LoadingSpinner/LoadingSpinner';
+import CartAction from '../../../ShoppingCart/components/CartAction/CartAction';
 
 const ProductDetails = () => {
   const { products, isLoading } = useProductsContext();
@@ -20,6 +21,9 @@ const ProductDetails = () => {
       <h2>{product.name}</h2>
       <span className={styles.price}> {formatCurrency(product.price)}</span>
       <p className={styles.description}>{product.description}</p>
+      <div className={styles.actions}>
+        <CartAction id={product.id} />
+      </div>
       <ProductAdditionalInfo
         features={product.features}
         specifications={product.specifications}

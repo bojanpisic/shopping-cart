@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import clsx from 'clsx';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import clsx from 'clsx';
 import { AccordionItemType } from '../../types/accordionItem.type';
 import styles from './Accordion.module.scss';
 

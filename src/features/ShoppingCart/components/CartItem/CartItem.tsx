@@ -1,7 +1,7 @@
+import CartQuantityActions from '../CartQuantityActions/CartQuantityActions';
+import { formatCurrency } from '../../../../utils/formatCurrency';
 import { useCartContext } from '../../../../contexts/CartContext';
 import { CartItemType } from '../../../../types';
-import { formatCurrency } from '../../../../utils/formatCurrency';
-import CartQuantityActions from '../CartQuantityActions/CartQuantityActions';
 import styles from './CartItem.module.scss';
 
 type Props = {

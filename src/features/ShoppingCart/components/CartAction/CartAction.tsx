@@ -1,5 +1,5 @@
-import Button from '../../../../components/Button/Button';
 import { useCartContext } from '../../../../contexts/CartContext';
+import Button from '../../../../components/Button/Button';
 
 type Props = {
   id: number;

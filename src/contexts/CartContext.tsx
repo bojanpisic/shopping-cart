@@ -1,6 +1,6 @@
 import { ReactNode, createContext, useCallback, useContext, useMemo } from 'react';
-import { CartDataType } from '../types';
 import { useLocalStorage } from '../hooks/useLocalStorage';
+import { CartDataType } from '../types';
 
 export type CartContextType = {
   cartData: CartDataType;

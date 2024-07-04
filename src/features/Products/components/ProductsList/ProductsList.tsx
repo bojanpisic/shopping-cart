@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import LoadingSpinner from '../../../../components/LoadingSpinner/LoadingSpinner';
 import { useProductsContext } from '../../../../contexts/ProductsContext';
+import { Paths } from '../../../../routes/path-constants';
 import ProductItem from '../ProductItem/ProductItem';
 import styles from './ProductsList.module.scss';
-import { Paths } from '../../../../routes/path-constants';
 
 const ProductsList = () => {
   const { products, isLoading, error } = useProductsContext();

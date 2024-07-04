@@ -16,7 +16,7 @@ const useSideDrawerContext = () => {
   const context = useContext(SideDrawerContext);
 
   if (!context)
-    throw Error('useProductsContext must be used within a SideDrawerProvider');
+    throw Error('useSideDrawerContext must be used within a SideDrawerProvider');
 
   return context;
 };
