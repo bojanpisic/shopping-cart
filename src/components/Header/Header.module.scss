@@ -3,18 +3,31 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 50px;
-  padding: 10px 25px;
+  height: 3.571rem;
+  padding: 0.714rem 1.786rem;
   padding-right: 2rem;
-  background-color: #fff;
-  box-shadow: 0 3px 6px #0000001f;
+  background-color: var(--light-bg-color);
+  box-shadow: 0 3px 6px var(--shadow-color);
   z-index: 1;
   display: flex;
   gap: 2rem;
   align-items: center;
   justify-content: space-between;
+
+  .links > a {
+    font-size: 1.1rem;
+    font-weight: 600;
+    appearance: none;
+    text-decoration: none;
+    cursor: pointer;
+    color: var(--text-color);
+  }
 }
 
 .logo {
-  height: 60px;
+  height: 4.286rem;
+
+  @media (max-width: 480px) {
+    display: none;
+  }
 }

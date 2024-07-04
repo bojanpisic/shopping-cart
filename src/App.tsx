@@ -1,15 +1,18 @@
-import CartIndicator from './features/ShoppingCart/components/CartIndicator/CartIndicator.tsx';
-import ProductsList from './features/Products/components/ProductsList/ProductsList.tsx';
-import { CartProvider } from './features/ShoppingCart/context/CartContext.tsx';
-import BasicLayout from './components/layouts/BasicLayout.tsx';
+import { ProductsProvider } from './contexts/ProductsContext.tsx';
+import { CartProvider } from './contexts/CartContext.tsx';
+import { SideDrawerProvider } from './contexts/SideDrawerContext.tsx';
+import AppRouterProvider from './routes/AppRouterProvider.tsx';
+import './styles/_variables.scss';
 
 function App() {
   return (
-    <CartProvider>
-      <BasicLayout headerContent={<CartIndicator />}>
-        <ProductsList />
-      </BasicLayout>
-    </CartProvider>
+    <ProductsProvider>
+      <CartProvider>
+        <SideDrawerProvider>
+          <AppRouterProvider />
+        </SideDrawerProvider>
+      </CartProvider>
+    </ProductsProvider>
   );
 }
 

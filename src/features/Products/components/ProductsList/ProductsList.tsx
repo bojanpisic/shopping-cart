@@ -1,18 +1,16 @@
-import { useState } from 'react';
-import { useProducts } from '../../hooks/useProducts';
-import ProductItem from '../ProductItem/ProductItem';
-import { ProductType } from '../../types/product.type';
-import Modal from '../../../../components/Modal/Modal';
-import ProductDetails from '../ProductDetails/ProductDetails';
-import clsx from 'clsx';
-import styles from './ProductsList.module.scss';
-import CartAction from '../../../ShoppingCart/components/CartAction/CartAction';
+import { useNavigate } from 'react-router-dom';
 import LoadingSpinner from '../../../../components/LoadingSpinner/LoadingSpinner';
+import { useProductsContext } from '../../../../contexts/ProductsContext';
+import ProductItem from '../ProductItem/ProductItem';
+import styles from './ProductsList.module.scss';
+import { Paths } from '../../../../routes/path-constants';
 
 const ProductsList = () => {
-  const { products, isLoading, error } = useProducts();
-  const [selectedProduct, setSelectedProduct] = useState<ProductType>();
-  const [showModal, setShowModal] = useState<boolean>(false);
+  const { products, isLoading, error } = useProductsContext();
+
+  const navigate = useNavigate();
+  const handleOnProductClick = (id: number) =>
+    navigate(`${Paths.ProductDetails}`.replace(':productId', id.toString()));
 
   if (isLoading) {
     return <LoadingSpinner />;
@@ -23,31 +21,14 @@ const ProductsList = () => {
   }
 
   if (!products || !products.length) {
-    //lodash isEmpty
     return <h1>No products.</h1>;
   }
 
-  const handleSelectProduct = (product: ProductType) => {
-    setShowModal(true);
-    setSelectedProduct(product);
-  };
-
   return (
-    <div className={clsx(styles['products-list'])}>
+    <div className={styles.productsList}>
       {products.map((product) => (
-        <ProductItem
-          key={product.id}
-          product={product}
-          onSelectProduct={handleSelectProduct}
-        />
+        <ProductItem key={product.id} product={product} onClick={handleOnProductClick} />
       ))}
-      <Modal
-        show={showModal}
-        actions={<CartAction product={selectedProduct!} />}
-        onClose={() => setShowModal(false)}
-      >
-        {selectedProduct && <ProductDetails product={selectedProduct} />}
-      </Modal>
     </div>
   );
 };

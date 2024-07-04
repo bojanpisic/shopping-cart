@@ -1,7 +1,7 @@
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
-import styles from './CloseButton.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import clsx from 'clsx';
+import styles from './CloseButton.module.scss';
 
 type Props = {
   position?: 'left' | 'right';

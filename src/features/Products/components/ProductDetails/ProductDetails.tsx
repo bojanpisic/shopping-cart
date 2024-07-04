@@ -1,68 +1,30 @@
-import Accordion from '../../../../components/Accordion/Accordion';
+import { useParams } from 'react-router-dom';
+import { useProductsContext } from '../../../../contexts/ProductsContext';
 import { formatCurrency } from '../../../../utils/formatCurrency';
-import { ProductType } from '../../types/product.type';
+import ProductAdditionalInfo from './ProductAdditionalInfo/ProductAdditionalInfo';
 import styles from './ProductDetails.module.scss';
+import LoadingSpinner from '../../../../components/LoadingSpinner/LoadingSpinner';
 
-type Props = {
-  product: ProductType;
-};
+const ProductDetails = () => {
+  const { products, isLoading } = useProductsContext();
 
-const renderContent = (data: any): JSX.Element[] => {
-  return Object.keys(data).map((key) => {
-    const value = data[key];
+  const { productId } = useParams();
 
-    if (Array.isArray(value)) {
-      return (
-        <div key={key}>
-          <ul>
-            {value.map((item: object | string, index: number) => (
-              <li key={index}>{typeof item === 'object' ? renderContent(item) : item}</li>
-            ))}
-          </ul>
-        </div>
-      );
-    }
+  if (isLoading) return <LoadingSpinner />;
 
-    if (typeof value === 'object' && value !== null) {
-      return (
-        <div key={key}>
-          <h4>{key}</h4>
-          {renderContent(value)}
-        </div>
-      );
-    }
-
-    return (
-      <div key={key}>
-        <h4>{key}</h4>
-        <p>{value.toString()}</p>
-      </div>
-    );
-  });
-};
-
-const ProductDetails = ({ product }: Props) => {
-  const { name, description, price, features, specifications } = product;
-
-  const accordionItems = [
-    {
-      title: 'Features',
-      key: 'features',
-      render: () => renderContent(features),
-    },
-    {
-      title: 'Specifications',
-      key: 'specifications',
-      render: () => renderContent(specifications),
-    },
-  ];
+  const product = products?.find((product) => product.id.toString() === productId);
+  if (!product) return null;
 
   return (
     <div className={styles.productDetails}>
-      <h2>{name}</h2>
-      <span className={styles.price}> {formatCurrency(price)}</span>
-      <p className={styles.description}>{description}</p>
-      <Accordion items={accordionItems} />
+      <h2>{product.name}</h2>
+      <span className={styles.price}> {formatCurrency(product.price)}</span>
+      <p className={styles.description}>{product.description}</p>
+      <ProductAdditionalInfo
+        features={product.features}
+        specifications={product.specifications}
+        additionalInformation={product.additionalInformation}
+      />
     </div>
   );
 };

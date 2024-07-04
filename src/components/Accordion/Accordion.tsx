@@ -1,17 +1,12 @@
-import { ReactNode, useState } from 'react';
-import styles from './Accordion.module.scss';
-import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useState } from 'react';
 import clsx from 'clsx';
-
-export type ItemType = {
-  key: string;
-  title: string;
-  render: () => ReactNode;
-};
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { AccordionItemType } from '../../types/accordionItem.type';
+import styles from './Accordion.module.scss';
 
 type Props = {
-  items: ItemType[];
+  items: AccordionItemType[];
 };
 
 const Accordion = ({ items }: Props) => {
@@ -32,7 +27,14 @@ const Accordion = ({ items }: Props) => {
         <div key={item.key} className={styles.accordion}>
           <button className={styles.button} onClick={() => handleItemSelect(i)}>
             {item.title}
-            <FontAwesomeIcon icon={faArrowDown} />
+            <span
+              className={clsx({
+                [styles.arrow]: true,
+                [styles.active]: i === selectedItemIndex,
+              })}
+            >
+              <FontAwesomeIcon icon={faChevronDown} />
+            </span>
           </button>
           <div
             className={clsx({

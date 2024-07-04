@@ -1,6 +1,9 @@
-.products-list {
+.productsList {
   display: grid;
   gap: 1.5rem 1rem;
   grid-template-columns: repeat(auto-fill, minmax(316px, 1fr));
-  padding: 2rem;
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
 }

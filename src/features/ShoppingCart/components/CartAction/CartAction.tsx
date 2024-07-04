@@ -1,17 +1,16 @@
 import Button from '../../../../components/Button/Button';
-import { ProductType } from '../../../Products/types/product.type';
-import { useCartContext } from '../../hooks/useCartContext';
+import { useCartContext } from '../../../../contexts/CartContext';
 
 type Props = {
-  product: ProductType;
+  id: number;
 };
 
-const CartAction = ({ product }: Props) => {
+const CartAction = ({ id }: Props) => {
   const { addToCart } = useCartContext();
 
   const handleOnClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    addToCart(product);
+    addToCart(id);
   };
 
   return <Button onClick={handleOnClick}>Add to cart</Button>;

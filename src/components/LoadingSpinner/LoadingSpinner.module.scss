@@ -7,8 +7,8 @@
   left: 50%;
 
   .spinner {
-    width: 48px;
-    height: 48px;
+    width: 3.429rem;
+    height: 3.429rem;
     border-radius: 50%;
     position: relative;
     animation: rotate 1s linear infinite;
@@ -20,7 +20,7 @@
     position: absolute;
     inset: 0px;
     border-radius: 50%;
-    border: 5px solid #009de0;
+    border: 5px solid var(--primary-color);
     animation: prixClipFix 2s linear infinite;
   }
   .spinner::after {

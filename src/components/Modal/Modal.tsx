@@ -1,8 +1,8 @@
 import { ReactNode } from 'react';
 import { createPortal } from 'react-dom';
+import { useScrollLock } from '../../hooks/useScrollLock';
 import CloseButton from '../CloseButton/CloseButton';
 import styles from './Modal.module.scss';
-import { useScrollLock } from '../../hooks/useScrollLock';
 
 type Props = {
   children: ReactNode;
@@ -19,26 +19,25 @@ const Modal = ({ children, title, onClose, actions, show }: Props) => {
     lock();
   } else {
     unlock();
+    return null;
   }
 
-  return show
-    ? createPortal(
-        <>
-          <div className={styles.backdrop} onClick={onClose} />
-          <div className={styles.wrapper} aria-modal tabIndex={-1} role="dialog">
-            <div className={styles.styledModal}>
-              <div className={styles.header}>
-                {title && <h3>{title}</h3>}
-                <CloseButton onClick={onClose} />
-              </div>
-              <div className={styles.content}>{children}</div>
-              <div className={styles.actions}>{actions}</div>
-            </div>
+  return createPortal(
+    <>
+      <div className={styles.backdrop} onClick={onClose} />
+      <div className={styles.wrapper} aria-modal tabIndex={-1} role="dialog">
+        <div className={styles.styledModal}>
+          <div className={styles.header}>
+            {title && <h3>{title}</h3>}
+            <CloseButton onClick={onClose} />
           </div>
-        </>,
-        document.getElementById('modal')!,
-      )
-    : null;
+          <div className={styles.content}>{children}</div>
+          <div className={styles.actions}>{actions}</div>
+        </div>
+      </div>
+    </>,
+    document.getElementById('modal')!,
+  );
 };
 
 export default Modal;

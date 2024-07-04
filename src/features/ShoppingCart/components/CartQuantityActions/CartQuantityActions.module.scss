@@ -5,8 +5,8 @@
   grid-template-columns: 3.375rem minmax(1.75rem, auto) 3.375rem 2.375rem;
   height: 3rem;
   align-items: center;
-  color: #009de0;
-  background-color: #ebf7fd;
+  color: var(--primary-color);
+  background-color: var(--btn-light-color);
   border-radius: 0.5rem;
   font-weight: 500;
   font-size: 1.1;
@@ -18,10 +18,14 @@
     cursor: pointer;
     align-self: center;
     justify-self: center;
+
+    &[disabled] {
+      pointer-events: none;
+    }
   }
 
   .quantityStepper {
-    background-color: #fff;
+    background-color: var(--light-bg-color);
     border-radius: 50%;
     width: 1.7rem;
     height: 1.7rem;

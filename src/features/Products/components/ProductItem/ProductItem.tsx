@@ -1,22 +1,20 @@
-import clsx from 'clsx';
-import { formatCurrency } from '../../../../utils/formatCurrency';
-import { ProductType } from '../../types/product.type';
-import styles from './ProductItem.module.scss';
 import CartAction from '../../../ShoppingCart/components/CartAction/CartAction';
+import { formatCurrency } from '../../../../utils/formatCurrency';
+import { ProductType } from '../../../../types/product.type';
+import styles from './ProductItem.module.scss';
 
 type Props = {
   product: ProductType;
-  onSelectProduct: (product: ProductType) => void;
+  onClick: (id: number) => void;
 };
 
-const ProductItem = ({ product, onSelectProduct }: Props) => {
-  const { name, description, price } = product;
+const ProductItem = ({ product, onClick }: Props) => {
+  const { id, name, description, price } = product;
+
+  const handleOnClick = () => onClick(id);
 
   return (
-    <div
-      className={clsx(styles['product-item'])}
-      onClick={() => onSelectProduct(product)}
-    >
+    <div className={styles.productItem} onClick={handleOnClick}>
       <div className={styles.content}>
         <h3 className={styles.title}>{name}</h3>
         <p className={styles.description}>{description}</p>
@@ -26,7 +24,7 @@ const ProductItem = ({ product, onSelectProduct }: Props) => {
         <span>{formatCurrency(price)}</span>
       </div>
       <div className={styles.actions}>
-        <CartAction product={product} />
+        <CartAction id={id} />
       </div>
     </div>
   );

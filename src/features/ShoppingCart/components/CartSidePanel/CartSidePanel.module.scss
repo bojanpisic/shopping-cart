@@ -18,7 +18,7 @@
 .separator {
   height: 0;
   border-top: 1px solid;
-  border-color: #ededee;
+  border-color: var(--separator-color);
   margin-top: 2rem;
 }
 
@@ -27,6 +27,6 @@
   font-weight: 700;
 
   span {
-    color: #009de0;
+    color: var(--primary-color);
   }
 }

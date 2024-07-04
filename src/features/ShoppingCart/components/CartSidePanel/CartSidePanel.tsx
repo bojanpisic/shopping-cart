@@ -1,28 +1,26 @@
 import Button from '../../../../components/Button/Button';
-import SideDrawer from '../../../../components/SideDrawer/SideDrawer';
+import { useSideDrawerContext } from '../../../../contexts/SideDrawerContext';
+import { useCartData } from '../../../../hooks/useCartData';
 import { formatCurrency } from '../../../../utils/formatCurrency';
-import { useCartContext } from '../../hooks/useCartContext';
 import CartItem from '../CartItem/CartItem';
 import styles from './CartSidePanel.module.scss';
 
 const CartSidePanel = () => {
-  const { cartItems, totalPrice, showCartPanel, setShowCartPanel } = useCartContext();
-
-  const handleClosePanel = () => setShowCartPanel(false);
+  const { close } = useSideDrawerContext();
+  const { cartItems, totalPrice } = useCartData();
 
   return (
-    <SideDrawer show={showCartPanel} onClose={handleClosePanel}>
-      {cartItems?.length > 0 &&
-        cartItems?.map((item) => <CartItem key={item.id} item={item} />)}
-
+    <>
       {!cartItems?.length && (
         <div className={styles.noItems}>
           <h1>No items</h1>
-          <Button variant="secondary" onClick={handleClosePanel}>
+          <Button variant="secondary" onClick={close}>
             Add items
           </Button>
         </div>
       )}
+      {cartItems?.length > 0 &&
+        cartItems?.map((item) => <CartItem key={item.id} item={item} />)}
       {cartItems?.length > 0 && (
         <>
           <div className={styles.separator} />
@@ -31,7 +29,7 @@ const CartSidePanel = () => {
           </p>
         </>
       )}
-    </SideDrawer>
+    </>
   );
 };
 

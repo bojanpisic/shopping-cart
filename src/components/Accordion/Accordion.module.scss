@@ -5,15 +5,35 @@
   .accordion {
     display: flex;
     flex-direction: column;
+    border-bottom: 1px solid var(--separator-color);
 
     .button {
-      appearance: none;
+      border: none;
+      background-color: var(--light-bg-color);
+      padding: 1rem 1.143rem;
+      display: flex;
+      justify-content: space-between;
+      cursor: pointer;
+      font-weight: 500;
+
+      .arrow {
+        transition: transform 1s ease;
+
+        &.active {
+          transform: rotate(-180deg);
+        }
+      }
     }
 
     .content {
-      height: 0;
+      max-height: 0;
+      padding: 0;
+      overflow: hidden;
+      transition: max-height 1s ease;
 
       &.active {
+        padding: 1rem 1.143rem;
+        max-height: 400px;
         height: auto;
       }
     }

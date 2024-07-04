@@ -1,17 +1,27 @@
 import Button from '../../../../components/Button/Button';
+import { useCartContext } from '../../../../contexts/CartContext';
+import { useProductsContext } from '../../../../contexts/ProductsContext';
+import { useSideDrawerContext } from '../../../../contexts/SideDrawerContext';
+import { useCartData } from '../../../../hooks/useCartData';
 import { formatCurrency } from '../../../../utils/formatCurrency';
-import { useCartContext } from '../../hooks/useCartContext';
 import styles from './CartIndicator.module.scss';
 
 const CartIndicator = () => {
-  const { cartQuantity, totalPrice, setShowCartPanel } = useCartContext();
+  const { isLoading, error } = useProductsContext();
+  const { cartQuantity } = useCartContext();
+  const { open } = useSideDrawerContext();
+  const { totalPrice } = useCartData();
+
+  if (isLoading || error) return null;
 
   return (
-    <Button onClick={() => setShowCartPanel((prev) => !prev)} style={{ flex: 'unset' }}>
-      <span className={styles.itemsQuantity}>{cartQuantity}</span>
-      Show items
-      <span>{formatCurrency(totalPrice)}</span>
-    </Button>
+    <div>
+      <Button onClick={open}>
+        <span className={styles.itemsQuantity}>{cartQuantity}</span>
+        Show items
+        <span>{formatCurrency(totalPrice)}</span>
+      </Button>
+    </div>
   );
 };
 

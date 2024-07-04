@@ -1,21 +1,19 @@
 import { ReactNode } from 'react';
-import styles from './SideDrawer.module.scss';
-import clsx from 'clsx';
 import CloseButton from '../CloseButton/CloseButton';
 import { useScrollLock } from '../../hooks/useScrollLock';
+import clsx from 'clsx';
+import styles from './SideDrawer.module.scss';
+import { useSideDrawerContext } from '../../contexts/SideDrawerContext';
 
 type Props = {
   children: ReactNode;
-  show?: boolean;
-  header?: ReactNode;
-  footer?: ReactNode;
-  onClose?: () => void;
 };
 
-const SideDrawer = ({ children, show, header, footer, onClose }: Props) => {
+const SideDrawer = ({ children }: Props) => {
+  const { isOpen, close } = useSideDrawerContext();
   const { lock, unlock } = useScrollLock();
 
-  if (show) {
+  if (isOpen) {
     lock();
   } else {
     unlock();
@@ -23,19 +21,17 @@ const SideDrawer = ({ children, show, header, footer, onClose }: Props) => {
 
   const classes = {
     [styles.sideDrawer]: true,
-    [styles.show]: show,
+    [styles.show]: isOpen,
   };
 
   return (
     <>
-      {show && <div className={styles.backdrop} onClick={onClose}></div>}
+      {isOpen && <div className={styles.backdrop} onClick={close}></div>}
       <div className={clsx(classes)}>
         <div className={styles.header}>
-          {header}
-          <CloseButton onClick={onClose} />
+          <CloseButton onClick={close} />
         </div>
         <div className={styles.content}>{children}</div>
-        <div className={styles.footer}>{footer}</div>
       </div>
     </>
   );

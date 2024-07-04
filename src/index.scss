@@ -3,6 +3,11 @@
   line-height: 1.5;
   font-weight: 400;
   font-size: 14px;
+
+  @media (max-width: 480px) {
+    font-size: 12px;
+  }
+
   color-scheme: light dark;
 
   font-synthesis: none;
@@ -25,11 +30,25 @@ body {
 }
 
 main {
-  margin-top: 5rem;
   flex: 1;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  // justify-content: center;
+  // align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  margin-top: 7rem;
+  padding: 2rem;
+  padding-top: 0;
+
+  @media (max-width: 480px) {
+    padding: 1rem;
+    padding-top: 0;
+  }
+}
+
+button {
+  font-family: 'Quicksand';
+  appearance: none;
 }
 
 .noscroll {
@@ -43,8 +62,8 @@ h1 {
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #202125;
-    background-color: #fcfcfa;
+    color: var(--text-color);
+    background-color: var(--bg-color);
   }
 }
 
